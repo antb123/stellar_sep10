@@ -1,24 +1,36 @@
 from stellar_sdk.server import Server
 from stellar_sdk.keypair import Keypair
+from logging.config import dictConfig
+import os
 
 
-STELLAR_ANCHORS = {
-    'naobtc.com': {
-        'assets': {
-            'BTC': 'GATEMHCCKCY67ZUCKTROYN24ZYT5GK4EQZ65JJLDHKHRUZI3EUEKMTCH',
-        },
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+        }
     },
-    'tempo.eu.com': {
-        'assets': {
-            'EURT': 'GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S',
-            'LKR': 'GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S',
-            'XOF': 'GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S',
-            'XAF': 'GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S',
-        },
-        'signing_pubkey': 'GCZF7CGJV75G2XNJOONJS5UZMASHPWUVJQMWTVDU5H3BS4OPXLSZ3AUH',
+    'handlers': {
+        'tsmthandler': {
+            'level':'INFO',
+            'formatter': 'default',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'TSMT.log'),
+            'maxBytes': 1024*1024*15, # 15MB
+            'backupCount': 10,
+        }
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['tsmthandler']
     }
-}
+})
 
+SEP10AUTH = True
 
 STELLAR_NETWORK = 'TESTNET'
 
@@ -44,10 +56,27 @@ ANCHOR_DISTRIBUTION_ACCOUNTS = {
 }
 
 ANCHOR_NAME = 'TEMPO FRANCE'
-# signing key (same as SIGNING_KEY from stellar.toml)
 ANCHOR_SIGNING_PUBKEY = "GCXDABO7BOKAFDV3KI6U6WO6ZZVEREBNFRF4KIFHSWLEKZ424OG32UDV"
 ANCHOR_SIGNING_SECRET = "SCY7NNDNR4477JWI5YGXABT6N4MC3I2WUH66SGEWKU6SEYNBXP5EPVH3"
 
+SERVER_JWT_KEY = 'secret'
+
+SERVER_JWT_PUBKEY = """
+-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0yX6N1ifVuKta4Zc9VG8
+UB5VsuwC23fUbfGoNivlQr21Qul073v5aF8zdHeVfNk9M++Q1of0WkqS/qH9DkFB
+aD2/C8J+L4L9If8vQyl7u/TEJVWrBS0G4WZcVbPWHfJ4fqa0TaOwMiR4dlaGkjUI
+qnnPJEjpI7EkfkXo3ggWe4Oo6436VFusuW389ZKOmBTR8dAYtCU1ArAa5r7cEbw6
+OG1PLt4sOWGmiBwZXoxGlK4y9LkVPqAdOmRwBbgD0CkhZSq6v3cP6dRP6WSKgCRE
+H15uIIwKeMowpnLwZMA+isGJPK4yjKriO3oS4VgYaqukHqg/O5RpbtVJgRotstGE
+xFFEtrBNWjDAIaRk5xBXQdNq2ktMH52UmZ93X92uEDAZgCKa9aQbuj4NQxsWiEGQ
+BZLRnV0uKD2R6U0JVLQvc3UbDYwRts5T22cqnPtSpbV808c6D4YJxaGXZ5kweY2q
+mPGER57ixx8BBRLkh+hVGVeiz/2EPaiB2SbXLTkZ+jWwfyIsHT3BWarl/fiJrcwn
+e+nwosTY8LSmqOeVvtAFPO5hya2KwGO4Vpgesc5tCAF3OlXekkmr0UfOrhdVEPjy
+H7I66kofGeztByGVKg6TXbn5DshKcJbmhN4tuhmr2nGkwUYY7c9fXU7yhaS7+lyZ
+pXOrHT0isq3sRFFMcjquhSsCAwEAAQ==
+-----END PUBLIC KEY-----
+"""
 SERVER_JWT_SECRET = """
 -----BEGIN RSA PRIVATE KEY-----
 MIIJKwIBAAKCAgEA0yX6N1ifVuKta4Zc9VG8UB5VsuwC23fUbfGoNivlQr21Qul0
