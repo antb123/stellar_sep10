@@ -30,6 +30,8 @@ dictConfig({
     }
 })
 
+
+
 SEP10AUTH = True
 
 STELLAR_NETWORK = 'TESTNET'
@@ -42,8 +44,8 @@ HORIZON_URI = HORIZON_URI_DICT[STELLAR_NETWORK]
 HORIZON_SERVER = Server(horizon_url=HORIZON_URI)
 
 # kp = Keypair.random()
-# ACCOUNT_SIGNING_SECRET = kp.secret
-# ACCOUNT_SIGNING_PUBKEY = Keypair.from_secret(ACCOUNT_SIGNING_SECRET).public_key
+# ANCHOR_SIGNING_SECRET = kp.secret
+# ANCHOR_SIGNING_PUBKEY = Keypair.from_secret(ANCHOR_SIGNING_SECRET).public_key
 
 ANCHOR_DISTRIBUTION_ACCOUNTS = {
     "PURPLE": {
@@ -58,6 +60,39 @@ ANCHOR_DISTRIBUTION_ACCOUNTS = {
 ANCHOR_NAME = 'TEMPO FRANCE'
 ANCHOR_SIGNING_PUBKEY = "GCXDABO7BOKAFDV3KI6U6WO6ZZVEREBNFRF4KIFHSWLEKZ424OG32UDV"
 ANCHOR_SIGNING_SECRET = "SCY7NNDNR4477JWI5YGXABT6N4MC3I2WUH66SGEWKU6SEYNBXP5EPVH3"
+
+ANCHOR_ISSUING_PUBKEY = "GBT4VVTDPCNA45MNWX5G6LUTLIEENSTUHDVXO2AQHAZ24KUZUPLPGJZH"
+
+ANCHOR_ASSETS = {
+    "PURPLE": {
+        "deposit_enabled": True,
+        "deposit_fee_fixed": 1.0,
+        "deposit_fee_percent": 0.01,
+        "deposit_min_amount": 10.0,
+        "deposit_max_amount": 10000.0,
+        "withdrawal_enabled": True,
+        "withdrawal_fee_fixed": 1.0,
+        "withdrawal_fee_percent": 0.01,
+        "withdrawal_min_amount": 10.0,
+        "withdrawal_max_amount": 10000.0,
+        "transaction_enabled": True,
+        "transactions_enabled": True,
+    },
+    "EURT": {
+        "deposit_enabled": False,
+        "deposit_fee_fixed": 1.0,
+        "deposit_fee_percent": 0.01,
+        "deposit_min_amount": 10.0,
+        "deposit_max_amount": 10000.0,
+        "withdrawal_enabled": True,
+        "withdrawal_fee_fixed": 1.0,
+        "withdrawal_fee_percent": 0.01,
+        "withdrawal_min_amount": 10.0,
+        "withdrawal_max_amount": 10000.0,
+        "transaction_enabled": True,
+        "transactions_enabled": True,
+    }
+}
 
 SERVER_JWT_KEY = 'secret'
 
