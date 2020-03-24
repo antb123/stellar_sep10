@@ -5,7 +5,7 @@ from flask import Flask
 from helpers import validate_sep10_token
 from sep_auth import Sep10Auth
 
-from datetime import timedelta
+import datetime
 import settings
 import os
 
