@@ -16,14 +16,14 @@ public_key = sys.argv[2]
 
 secret_key = getpass("Secret key (won't be displayed): ")
 
-response = requests.get(f"{server_url}/auth?account={public_key}")
+response = requests.get(f"{server_url}/api/sep-auth?account={public_key}")
 content = json.loads(response.content)
 envelope_xdr = content["transaction"]
 envelope_object = TransactionEnvelope.from_xdr(envelope_xdr)
 client_signing_key = Keypair.from_seed(secret_key)
 envelope_object.sign(client_signing_key)
 client_signed_envelope_xdr = envelope_object.xdr().decode("ascii")
-response = requests.post(f"{server_url}/auth", json={"transaction": client_signed_envelope_xdr})
+response = requests.post(f"{server_url}/api/sep-auth", json={"transaction": client_signed_envelope_xdr})
 content = json.loads(response.content)
 
 print(content["token"])
