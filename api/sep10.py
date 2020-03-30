@@ -47,13 +47,7 @@ def get_transaction():
     account_pubkey = request_args['account']
     account_secret = request_args['secret']
     anchor_name = request_args['anchor']
-
-    try:
-        anchor_name = settings.ANCHORS[anchor_name]
-    except KeyError:
-        err_msg = "No such anchor"
-        LOGGER.error(err_msg)
-        return jsonify({"error": err_msg, "status": 404})
+    anchor_name = settings.ANCHORS[anchor_name]
 
     url = anchor_name['WEB_AUTH_ENDPOINT']
     params = {'account': account_pubkey}

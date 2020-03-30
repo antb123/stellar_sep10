@@ -28,16 +28,9 @@ def deposit():
 
     asset_code = request_args['asset_code']
     anchor_name = request_args['anchor']
+    anchor_name = settings.ANCHORS[anchor_name]
     account_email = request_args['email']
     token = request_args['Authorization']
-
-    try:
-        anchor_name = settings.ANCHORS[anchor_name]
-    except KeyError:
-        err_msg = "No such anchor"
-        LOGGER.error(err_msg)
-        return jsonify({"error": err_msg, "status": 404})
-
 
     url = anchor_name['TRANSFER_SERVER'] + '/withdraw'
     params = {
